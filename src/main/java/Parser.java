@@ -1,3 +1,5 @@
+import analysis.CourseByRounds;
+import analysis.FilesProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,8 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,9 +37,12 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (null == path)
+            System.exit(1);
         log.info("path: " + path);
 
         File[] values = new File(path).listFiles();
+
         Set<String> files = Stream.of(values)
                 .filter(file -> !file.isDirectory())
                 .map(File::getName)
@@ -49,12 +53,7 @@ public class Parser {
     }
 
     public void parse(Set<String> files) throws IOException {
-        for (String f :
-                files) {
-            Path path1 = Paths.get(path + "/"+ f);
-            String first = Files.readAllLines(path1).get(0);
-            System.out.println(first);
-        }
+        new CourseByRounds(files, path).invoke();
     }
 
 }
