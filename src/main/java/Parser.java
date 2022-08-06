@@ -1,5 +1,6 @@
 import analysis.CourseByRounds;
 import analysis.FilesProcessor;
+import analysis.HoleOnCourse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +54,8 @@ public class Parser {
     }
 
     public void parse(Set<String> files) throws IOException {
-        new CourseByRounds(files, path).invoke();
+        //new CourseByRounds(files, path).invoke();
+        new HoleOnCourse(files, path).invoke();
     }
 
 }
